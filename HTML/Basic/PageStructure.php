@@ -40,7 +40,8 @@ class PageStructure {
         $this->updateBody();
         $this->Body->setInner_HTML($this->Body_HTML);
         $this->Body->updateHTML();
-        $this->Full_HTML = "<html>";
+        $this->Full_HTML = "<!DOCTYPE html>";
+        $this->Full_HTML .= '<html lang="en">';
         $this->Full_HTML .= "<head>";
         $this->Full_HTML .= "<title>" . $this->HTML_title . "</title>";
         $this->Full_HTML .= $this->Header_HTML;

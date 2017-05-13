@@ -45,17 +45,17 @@ class Tag {
         $this->updateStyle();
         $array = get_object_vars($this);
         foreach ($array as $key => $value) {
-            if (substr($key, 0, 5) == "HTML_" && strlen($value)>0) {
+            if (substr($key, 0, 5) == "HTML_" && strlen($value) > 0) {
                 $this->TAG_attrib .= " " . substr($key, 5, strlen($key) - 4) . '="' . $value . '"';
             }
         }
     }
-    
+
     public function updateClasses() {
         if (count($this->Class_Names) > 0) {
             $this->HTML_class = "";
             foreach ($this->Class_Names as $key => $value) {
-                $this->HTML_class .= $value." ";
+                $this->HTML_class .= $value . " ";
             }
         }
     }
@@ -64,16 +64,16 @@ class Tag {
         if (count($this->Style_List) > 0) {
             $this->HTML_style = "";
             foreach ($this->Style_List as $key => $value) {
-                $this->HTML_style .= $key.":".$value.";";
+                $this->HTML_style .= $key . ":" . $value . ";";
             }
         }
     }
-    
+
     public function updateInnerHTML() {
         if (count($this->Inner_Tags) > 0) {
             foreach ($this->Inner_Tags as $key => $value) {
-                $value->updateHTML();
-                $this->Inner_HTML .= $value->getTAG_HTML();
+                    $value->updateHTML();
+                    $this->Inner_HTML .= $value->getTAG_HTML();
             }
         }
     }
@@ -81,9 +81,15 @@ class Tag {
     public function addElement($tag) {
         $this->Inner_Tags[$tag->getTAG_number()] = $tag;
     }
-    public function addStyle($style_name,$value) {
+
+    public function addText($text) {
+        $this->setInner_HTML($text);
+    }
+
+    public function addStyle($style_name, $value) {
         $this->Style_List[$style_name] = $value;
     }
+
     public function addClass($Class) {
         array_push($this->Class_Names, $Class);
     }
@@ -98,11 +104,12 @@ class Tag {
         }
     }
 
-    public function __construct($TAG_name, $close = null,$id = null) {
+    public function __construct($TAG_name, $close = null, $id = null) {
         $this->TAG_name = $TAG_name;
         $this->TAG_Type = $close;
-        $this->TAG_number = random_int(0, 999999999);
-        if($id == NULL)$this->HTML_id = $this->TAG_name . "_" . $this->TAG_number;
+        $this->TAG_number = random_int(0, 999999999) . "##" . random_int(0, 999999999);
+        if ($id == NULL)
+            $this->HTML_id = $this->TAG_name . "_" . $this->TAG_number;
     }
 
     public function printTag() {
@@ -148,6 +155,5 @@ class Tag {
     function setTAG_number($TAG_number) {
         $this->TAG_number = $TAG_number;
     }
-
 
 }
