@@ -5,14 +5,14 @@ class Meta extends Tag{
     
     public function __construct($name = "",$content = "") {
         parent::__construct("meta",NULL,TRUE);
-        $this->setHTML_name($name);
-        $this->setHTML_content($content);
+        $this->setname($name);
+        $this->setcontent($content);
     }
-    function getHTML_content() {
+    function getcontent() {
         return $this->HTML_content;
     }
 
-    function setHTML_content($HTML_content) {
+    function setcontent($HTML_content) {
         $this->HTML_content = $HTML_content;
     }
 

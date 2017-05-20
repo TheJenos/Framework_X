@@ -15,35 +15,35 @@ class TextField extends Input {
     public $HTML_type = "";
     
     
-    function getHTML_type() {
+    function gettype() {
         return $this->HTML_type;
     }
 
-    function setHTML_type($HTML_type) {
+    function settype($HTML_type) {
         $this->HTML_type = $HTML_type;
     }
 
-        function getHTML_placeholder() {
+        function getplaceholder() {
         return $this->HTML_placeholder;
     }
 
-    function getHTML_readonly() {
+    function getreadonly() {
         return $this->HTML_readonly;
     }
 
-    function setHTML_placeholder($HTML_placeholder) {
+    function setplaceholder($HTML_placeholder) {
         $this->HTML_placeholder = $HTML_placeholder;
     }
 
-    function setHTML_readonly($HTML_readonly) {
+    function setreadonly($HTML_readonly) {
         $this->HTML_readonly = $HTML_readonly;
     }
 
     
     public function __construct($name = "") {
         parent::__construct();
-        $this->setHTML_type("Text");
-        $this->setHTML_name($name);
+        $this->settype("Text");
+        $this->setname($name);
     }
 
 }

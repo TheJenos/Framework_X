@@ -1,55 +1,84 @@
 <?php
 
+session_start();
 include "./HTML/Inti.php";
 
+$hostname = './';
+$host = 'localhost:3306';
+$root = 'root';
+$pass = '';
+$database = 'help_io';
+$con = mysqli_connect($host, $root, $pass, $database);
+
+if(isset($_POST['email']))
+    die($_POST['email']);
 $full = new PageStructure();
-$btn1 = new Button("Test");
-$txt1 = new TextField();
-$lab1 = new Label("Email address");
-$div1 = new Div();
-$div0 = new Div();
+//if (!$full->isSaved()) {
+    $JQuery = new JQuery($full);
+    $angulerjs = new AngulerJS($full);
+    $BS = new Bootstrap($full);
+    $btn1 = new Button("Test");
+    $txt1 = new TextField();
+    $lab1 = new Label('Email address');
+    $div1 = new Div();
+    $div0 = new Div();
+    $script1 = new Script();
 
-$full->addToHead(new Meta("viewport", "width=device-width, initial-scale=1"));
-$full->addToHead(new Link("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"));
-$full->addToHead(new Link("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"));
-$full->addToHead(new Script("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"));
+    $function1 = $script1->addFunction("", "alert('dasdasd')");
 
-$btn1->setHTML_name("name1");
-$btn1->setHTML_value("Submit");
-$btn1->addClass("btn");
-$btn1->addClass("btn-success");
+    $table1 = new ReloadTable($con, "SELECT * FROM `user`");
+    $table1->addClass("table");
+    $table1->AddBind("User ID", "{{x.UID}}");
+    $table1->AddBind("User Name", "{{x.Uname}}");
+    $table1->AddBind("User Email", "{{x.Uemail}}");
+    $image1 = new Image();
+    $image1->setJS_src("{{x.Upic}}");
+    $image1->setwidth("60");
+    $table1->AddBind("User Image", $image1);
 
-$txt1->setHTML_placeholder("Type Email");
-$txt1->setHTML_type(TextField::$TYPE_EMAIL);
-$txt1->addClass("form-control");
-$lab1->setHTML_for($txt1->getHTML_id());
+    $body = $full->getBody();
+//  $body->setonLoad($function1 . "()");
 
-$div1->addClass("form-group");
-$div1->addElement($lab1);
-$div1->addElement($txt1);
+    $full->addToHead(new Meta("viewport", "width=device-width, initial-scale=1"));
+    $full->addToHead($script1);
 
-$div0->addElement($div1);
-$div0->addElement($btn1);
-$div0->addClass("container");
-$div0->addStyle("padding-top", "20px");
+    $btn1->setname("submit");
+    $btn1->setvalue("Submit");
+    $btn1->addClass("btn");
+    $btn1->addClass("btn-success");
 
-$table1 = new Table();
-$table1->addClass("table");
-$tr1 = $table1->addARowToHead();
-$table1->addData($tr1, "Name");
-$table1->addData($tr1, "Value");
-$tr2 = $table1->addARowToBody();
-$table1->addData($tr2, "Thanura");
-$table1->addData($tr2, "12");
-$tr3 = $table1->addARowToBody();
-$table1->addData($tr3, "Hirusha");
-$table1->addData($tr3, "13");
-$tr3 = $table1->addARowToBody();
-$table1->addData($tr3, "Chamath");
-$table1->addData($tr3, "15");
+    $txt1->setplaceholder('Type Email ');
+    $txt1->settype(TextField::$TYPE_TXET);
+    $txt1->addClass("form-control");
+    $txt1->setname("email");
+    $lab1->setfor($txt1->getid());
+
+    $div1->addClass("form-group");
+    $div1->addElement($lab1);
+    $div1->addElement($txt1);
+
+    //$div0->addElement($div1);
+    $form1 = new AjaxForm(); 
+    $form1->setaction("test.php");
+    $form1->setmethod("post");
+    $form1->addElement($div1);
+    $form1->addElement($btn1);
+    $form1->setDoneJS('$scope.email="";');
+    
+    
+    $div0->addElement($form1);
+    $div0->addClass("container");
+    $div0->addStyle("padding-top", "20px");
 
 
-$div0->addElement($table1);
-
-$full->addToBody($div0);
-$full->printHTML();
+    $div0->addElement($table1);
+    $full->addToBody($div0);
+    $full->printHTML();
+//    $full->saveOnSession();
+//} else {
+//    $full = $full->loadFromSession();
+//    $table1 = $full->getElementByName("tablex");
+//    $table1->getData($con);
+//    $full->printHTML();
+//}
+    

@@ -11,6 +11,7 @@ class Table extends Tag {
     public $Body_HTML = "";
 
     public function updateBody() {
+        $this->Body_HTML = "";
         foreach ($this->Body_Tags as $key => $value) {
             $value->updateHTML();
             $this->Body_HTML .= $value->getTAG_HTML();
@@ -18,12 +19,48 @@ class Table extends Tag {
     }
 
     public function updateHead() {
+        $this->Header_HTML = "";
         foreach ($this->Header_Tags as $key => $value) {
             $value->updateHTML();
             $this->Header_HTML .= $value->getTAG_HTML();
         }
     }
 
+    public function ClearInnerHTML() {
+        parent::ClearInnerHTML();
+        if (count($this->Header_Tags) > 0) {
+            foreach ($this->Header_Tags as $key => $value) {
+                $value->ClearInnerHTML();
+            }
+        }
+        if (count($this->Body_Tags) > 0) {
+            foreach ($this->Body_Tags as $key => $value) {
+                $value->ClearInnerHTML();
+            }
+        }
+    }
+    
+    public function getElementByName($name) {
+        $data = NULL;
+        foreach ($this->Body_Tags as $key => $value) {
+            if ($value->getname() == $name) {
+                $data = $value;
+            } else {
+                $txt = $value->getElementByName($name);
+                if ($txt != null) $data = $txt;
+            }
+        }
+        foreach ($this->Header_Tags as $key => $value) {
+            if ($value->getname() == $name) {
+                $data = $value;
+            } else {
+                $txt = $value->getElementByName($name);
+                if ($txt != null) $data = $txt;
+            }
+        }
+        return $data;
+    }
+    
     public function updateHTML() {
         $this->updateHead();
         $this->updateBody();

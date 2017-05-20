@@ -6,8 +6,8 @@ class Button extends Input {
 
     public function __construct($text = "") {
         parent::__construct();
-        $this->setHTML_type("Button");
-        $this->setHTML_value($text);
+        $this->settype("Button");
+        $this->setvalue($text);
     }
 
 }

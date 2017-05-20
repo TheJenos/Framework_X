@@ -9,11 +9,11 @@ class Link extends Tag{
         $this->HTML_href = $Link;
     }
     
-    function getHTML_href() {
+    function gethref() {
         return $this->HTML_href;
     }
 
-    function setHTML_href($HTML_href) {
+    function sethref($HTML_href) {
         $this->HTML_href = $HTML_href;
     }
 

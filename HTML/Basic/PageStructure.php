@@ -14,6 +14,7 @@ class PageStructure {
     public $HTML_title = "";
 
     public function updateBody() {
+        $this->Body_HTML = "";
         foreach ($this->Body_Tags as $key => $value) {
             $value->updateHTML();
             $this->Body_HTML .= $value->getTAG_HTML();
@@ -21,9 +22,46 @@ class PageStructure {
     }
 
     public function updateHead() {
+        $this->Header_HTML = "";
         foreach ($this->Header_Tags as $key => $value) {
             $value->updateHTML();
             $this->Header_HTML .= $value->getTAG_HTML();
+        }
+    }
+
+    public function getElementByName($name) {
+        $data = NULL;
+        foreach ($this->Body_Tags as $key => $value) {
+            if ($value->getname() == $name) {
+                $data = $value;
+            } else {
+                $txt = $value->getElementByName($name);
+                if ($txt != null)
+                    $data = $txt;
+            }
+        }
+        foreach ($this->Header_Tags as $key => $value) {
+            if ($value->getname() == $name) {
+                $data = $value;
+            } else {
+                $txt = $value->getElementByName($name);
+                if ($txt != null)
+                    $data = $txt;
+            }
+        }
+        return $data;
+    }
+
+    public function clearAll() {
+        if (count($this->Header_Tags) > 0) {
+            foreach ($this->Header_Tags as $key => $value) {
+                $value->ClearInnerHTML();
+            }
+        }
+        if (count($this->Body_Tags) > 0) {
+            foreach ($this->Body_Tags as $key => $value) {
+                $value->ClearInnerHTML();
+            }
         }
     }
 
@@ -33,6 +71,10 @@ class PageStructure {
 
     public function addToHead($tag) {
         $this->Header_Tags[$tag->getTAG_number()] = $tag;
+    }
+
+    public function saveOnSession() {
+        $_SESSION[$_SERVER['SCRIPT_NAME']] = serialize($this);
     }
 
     public function updateHTML() {
@@ -50,9 +92,22 @@ class PageStructure {
         $this->Full_HTML .= "</html>";
     }
 
+    public function isSaved() {
+        return isset($_SESSION[$_SERVER['SCRIPT_NAME']]);
+    }
+
+    public function loadFromSession() {
+        return unserialize($_SESSION[$_SERVER['SCRIPT_NAME']]);
+    }
+
     public function __construct($title = "") {
-        $this->HTML_title = $title;
-        $this->Body = new Tag("body");
+        if (!$this->isSaved()){
+            $this->HTML_title = $title;
+            $this->Body = new Tag("body");
+        }
+        foreach ($_SESSION['Elements'] as $key => $value) {
+            $_SESSION['Elements'][$key]=0; 
+        }
     }
 
     function getInner_HTML() {
@@ -83,7 +138,7 @@ class PageStructure {
         return $this->Body;
     }
 
-    function getHTML_title() {
+    function gettitle() {
         return $this->HTML_title;
     }
 
@@ -115,13 +170,14 @@ class PageStructure {
         $this->Body = $Body;
     }
 
-    function setHTML_title($HTML_title) {
+    function settitle($HTML_title) {
         $this->HTML_title = $HTML_title;
     }
 
     public function printHTML() {
         $this->updateHTML();
         echo $this->Full_HTML;
+        $this->clearAll();
     }
 
 }

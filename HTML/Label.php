@@ -6,11 +6,11 @@ class Label extends Tag{
         parent::__construct("label");
         $this->setInner_HTML($text);
     }
-    function getHTML_for() {
+    function getfor() {
         return $this->HTML_for;
     }
 
-    function setHTML_for($HTML_for) {
+    function setfor($HTML_for) {
         $this->HTML_for = $HTML_for;
     }
 

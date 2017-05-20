@@ -8,11 +8,11 @@ class Input extends Tag {
     public $HTML_value = "";
     public $HTML_disable = FALSE;
 
-    function getHTML_disable() {
+    function getdisable() {
         return $this->HTML_disable;
     }
 
-    function setHTML_disable($HTML_disable) {
+    function setdisable($HTML_disable) {
         $this->HTML_disable = $HTML_disable;
     }
 
@@ -20,19 +20,19 @@ class Input extends Tag {
         parent::__construct("Input", TRUE);
     }
 
-    function getHTML_type() {
+    function gettype() {
         return $this->HTML_type;
     }
 
-    function getHTML_value() {
+    function getvalue() {
         return $this->HTML_value;
     }
 
-    function setHTML_type($HTML_type) {
+    function settype($HTML_type) {
         $this->HTML_type = $HTML_type;
     }
 
-    function setHTML_value($HTML_value) {
+    function setvalue($HTML_value) {
         $this->HTML_value = $HTML_value;
     }
 

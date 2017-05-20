@@ -16,17 +16,17 @@ and open the template in the editor.
         <?php
         include "./HTML/Inti.php";
         $btn1 = new Button("Test");
-        $btn1->setHTML_name("name1");
-        $btn1->setHTML_value("Submit");
+        $btn1->setname("name1");
+        $btn1->setvalue("Submit");
         $btn1->addClass("btn");
         $btn1->addClass("btn-success");
         
         $txt1 = new TextField();
         $lab1 = new Label("Email address");
-        $txt1->setHTML_placeholder("Type Email");
-        $txt1->setHTML_type(TextField::$TYPE_EMAIL);
+        $txt1->setplaceholder("Type Email");
+        $txt1->settype(TextField::$TYPE_EMAIL);
         $txt1->addClass("form-control");
-        $lab1->setHTML_for($txt1->getHTML_id());
+        $lab1->setfor($txt1->getid());
 
         $div1 = new Div("div");
         $div1->addClass("form-group");
